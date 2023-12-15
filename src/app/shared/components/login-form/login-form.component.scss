@@ -1,9 +1,6 @@
-@import 'src/app/shared/styles/styles.scss';
+@import "src/app/shared/styles/styles.scss";
 
 .login-form {
-  width: 260px;
-  margin-top: 36px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  width: 286px;
+  min-height: 477px;
 }
