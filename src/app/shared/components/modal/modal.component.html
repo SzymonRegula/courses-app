@@ -1,0 +1,25 @@
+<div class="modal__backdrop">
+  <div class="modal__container">
+    <div class="modal__title">
+      <div>{{ title }}</div>
+      <div class="modal__icon" (click)="modalAction(false)">
+        <fa-icon [icon]="['fas', 'xmark']"></fa-icon>
+      </div>
+    </div>
+    <div class="modal__message">{{ message }}</div>
+    <div class="modal__actions">
+      <div class="modal__btn">
+        <app-button
+          [buttonText]="okButtonText"
+          (click)="modalAction(true)"
+        ></app-button>
+      </div>
+      <div class="modal__btn">
+        <app-button
+          [buttonText]="cancelButtonText"
+          (click)="modalAction(false)"
+        ></app-button>
+      </div>
+    </div>
+  </div>
+</div>
