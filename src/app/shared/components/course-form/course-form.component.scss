@@ -1,7 +1,15 @@
-@import 'src/app/shared/styles/styles';
+@import "src/app/shared/styles/styles";
+
+.header {
+  text-align: left;
+}
 
 .course {
- min-width: 60vw;
+  width: 100%;
+  padding: 42px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 
   &__flex {
     display: flex;
@@ -22,11 +30,17 @@
   }
 
   &__authors {
+    list-style: none;
     margin-top: 8px;
     display: flex;
 
     &-item {
-      margin-right: 10px;
+      margin-right: 16px;
+    }
+
+    &-icon {
+      cursor: pointer;
+      margin-left: 8px;
     }
   }
 
@@ -34,4 +48,22 @@
     margin-left: 4px;
     cursor: pointer;
   }
+}
+
+.form__action {
+  margin: 60px 0 0 0;
+
+  &-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+  }
+}
+
+.form__control {
+  margin-bottom: 0;
+}
+
+.text-danger {
+  position: static;
 }

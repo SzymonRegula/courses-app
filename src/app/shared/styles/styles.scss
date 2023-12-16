@@ -11,7 +11,7 @@ h2 {
 
 .app-plate {
   margin: 0 auto;
-  max-width: 585px;
+  width: 100%;
   background-color: $color-white;
   border: 1px solid $color-gray;
   border-radius: 4px;
@@ -61,6 +61,14 @@ h2 {
   }
 
   input {
+    padding: 13px 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  textarea {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -70,18 +78,15 @@ h2 {
   .ng-invalid.ng-touched {
     border: 1px solid red;
   }
+}
 
-  .text-danger {
-    position: absolute;
-    top: 100%;
-  }
+.text-danger {
+  position: absolute;
+  top: 100%;
+  color: red;
 }
 
 .separator {
   width: 100%;
   border-bottom: 1px solid $color-gray;
-}
-
-.text-danger {
-  color: red;
 }
