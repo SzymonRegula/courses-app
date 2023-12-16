@@ -1,18 +1,21 @@
-<app-header>
-  <app-button buttonText="login"></app-button>
-</app-header>
-<app-info
-  title="Your list is empty"
-  text="Please use 'Add New Course' button to add your first course"
->
-  <app-button buttonText="add new course"></app-button
-></app-info>
-<app-course-list [courses]="courses" [editable]="editable"> </app-course-list>
-<app-modal
-  *ngIf="modalShown"
-  title="Message"
-  message="Message text"
-  okButtonText="ok"
-  cancelButtonText="close"
-  (modalResultEvent)="modalAction($event)"
-></app-modal>
+<div class="courses-page">
+  <app-header>
+    <app-button buttonText="login"></app-button>
+  </app-header>
+  <app-info
+    title="Your list is empty"
+    text="Please use 'Add New Course' button to add your first course"
+  >
+    <app-button buttonText="add new course"></app-button
+  ></app-info>
+  <app-search></app-search>
+  <app-course-list [courses]="courses" [editable]="editable"> </app-course-list>
+  <!-- <app-modal
+    *ngIf="modalShown"
+    title="Message"
+    message="Message text"
+    okButtonText="ok"
+    cancelButtonText="close"
+    (modalResultEvent)="modalAction($event)"
+  ></app-modal> -->
+</div>
