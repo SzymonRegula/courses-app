@@ -1,4 +1,4 @@
-<button [type]="type" [class]="classExpression">
+<button [type]="type" [class]="classExpression" (click)="(click)">
   <fa-icon *ngIf="iconName" [icon]="['fas', iconName]"></fa-icon>
   {{ buttonText }}
 </button>

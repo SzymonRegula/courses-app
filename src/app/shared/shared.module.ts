@@ -17,6 +17,7 @@ import {
   CourseFormComponent,
   CourseListComponent,
 } from './components';
+import { RouterModule } from '@angular/router';
 
 const COMPONENTS = [
   HeaderComponent,
@@ -37,7 +38,13 @@ const DECLARATIONS = [...COMPONENTS, ...DIRECTIEVS, ...PIPES];
 
 @NgModule({
   declarations: DECLARATIONS,
-  imports: [CommonModule, FontAwesomeModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    FontAwesomeModule,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+  ],
   exports: DECLARATIONS,
 })
 export class SharedModule {}
