@@ -1,8 +1,10 @@
-import { createAction } from '@ngrx/store';
+import { Course } from '@app/models/course.model';
+import { createAction, props } from '@ngrx/store';
 
 export const requestAllCourses = createAction('[Courses] Request All Courses');
 export const requestAllCoursesSuccess = createAction(
-  '[Courses] Request All Courses Success'
+  '[Courses] Request All Courses Success',
+  props<{ courses: Course[] }>()
 );
 export const requestAllCoursesFail = createAction(
   '[Courses] Request All Courses Fail'
@@ -12,7 +14,8 @@ export const requestSingleCourse = createAction(
   '[Courses] Request Single Course'
 );
 export const requestSingleCourseSuccess = createAction(
-  '[Courses] Request Single Course Success'
+  '[Courses] Request Single Course Success',
+  props<{ course: Course }>()
 );
 export const requestSingleCourseFail = createAction(
   '[Courses] Request Single Course Fail'
