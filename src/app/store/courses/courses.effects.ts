@@ -28,8 +28,21 @@ export class CoursesEffects {
 
   filteredCourses$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(CoursesActions.requestFilteredCourses)
-      //
+      ofType(CoursesActions.requestFilteredCourses),
+      withLatestFrom(this.coursesStateFacade.allCourses$),
+      map(([action, courses]) => {
+        const searchValue = action.searchValue;
+        const filteredCourses = courses.filter((course) =>
+          course.title
+            .trim()
+            .toLowerCase()
+            .includes(searchValue.trim().toLowerCase())
+        );
+        return CoursesActions.requestFilteredCoursesSuccess({
+          courses: filteredCourses,
+        });
+      }),
+      catchError(() => of(CoursesActions.requestFilteredCoursesFail()))
     )
   );
 
