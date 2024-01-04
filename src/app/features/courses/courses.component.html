@@ -6,7 +6,7 @@
 
   <div class="courses-page__content">
     <app-info
-      *ngIf="(courses$ | async)?.length === 0"
+      *ngIf="(allCourses$ | async)?.length === 0"
       title="Your list is empty"
       text="Please use 'Add New Course' button to add your first course"
     >
@@ -16,7 +16,7 @@
       ></app-button>
     </app-info>
 
-    <div *ngIf="(courses$ | async)?.length !== 0">
+    <div *ngIf="(allCourses$ | async)?.length !== 0">
       <div class="courses-page__content__search_row">
         <app-search class="app-search" (search)="onSearch($event)"></app-search>
         <app-button
@@ -27,7 +27,11 @@
       </div>
 
       <app-course-list
-        [courses]="(searchCourses$ | async) || []"
+        [courses]="
+          ((isSearchingState$ | async)
+            ? (courses$ | async)
+            : (allCourses$ | async)) || []
+        "
         [editable]="(isAdmin$ | async) || false"
         (deleteCourseEvent)="onDeleteCourse($event)"
         (editCourseEvent)="onEditCourse($event)"

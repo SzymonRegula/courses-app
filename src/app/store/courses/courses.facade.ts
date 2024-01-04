@@ -18,7 +18,7 @@ import {
   requestFilteredCourses,
   requestSingleCourse,
 } from './courses.actions';
-import { Course, CourseRequest } from '@app/models/course.model';
+import { CourseRequest } from '@app/models/course.model';
 
 @Injectable({ providedIn: 'root' })
 export class CoursesStateFacade {
@@ -46,7 +46,7 @@ export class CoursesStateFacade {
     this.store.dispatch(requestFilteredCourses({ searchValue }));
   }
 
-  editCourse(body: Course, id: string) {
+  editCourse(id: string, body: CourseRequest) {
     this.store.dispatch(requestEditCourse({ id, body }));
   }
 

@@ -69,9 +69,10 @@ const reduce = createReducer(
     isSearchState: true,
     errorMessage: null,
   })),
-  on(CoursesActions.requestFilteredCoursesSuccess, (state) => ({
+  on(CoursesActions.requestFilteredCoursesSuccess, (state, { courses }) => ({
     ...state,
-    isSearchState: false,
+    courses,
+    isSearchState: true,
     errorMessage: null,
   })),
   on(CoursesActions.requestFilteredCoursesFail, (state) => ({

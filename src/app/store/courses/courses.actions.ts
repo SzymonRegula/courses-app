@@ -47,7 +47,7 @@ export const requestDeleteCourseFail = createAction(
 
 export const requestEditCourse = createAction(
   '[Courses] Request Edit Course',
-  props<{ id: string; body: Course }>()
+  props<{ id: string; body: CourseRequest }>()
 );
 export const requestEditCourseSuccess = createAction(
   '[Courses] Request Edit Course Success'
