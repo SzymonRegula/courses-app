@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DurationPipe } from './pipes/duration.pipe';
-import { CustomDatePipe } from './pipes/custom-date.pipe';
+import { CreationDatePipe } from './pipes/creation-date.pipe';
 import { EmailValidatorDirective } from '@shared/directives/email.directive';
 import {
   HeaderComponent,
@@ -28,15 +28,16 @@ const COMPONENTS = [
   LoginFormComponent,
   RegistrationFormComponent,
   CourseFormComponent,
-  DurationPipe,
-  CustomDatePipe,
-  EmailValidatorDirective,
   CourseListComponent,
 ];
+const DIRECTIEVS = [EmailValidatorDirective];
+const PIPES = [DurationPipe, CreationDatePipe];
+
+const DECLARATIONS = [...COMPONENTS, ...DIRECTIEVS, ...PIPES];
 
 @NgModule({
-  declarations: [COMPONENTS],
+  declarations: DECLARATIONS,
   imports: [CommonModule, FontAwesomeModule, FormsModule, ReactiveFormsModule],
-  exports: [COMPONENTS],
+  exports: DECLARATIONS,
 })
 export class SharedModule {}

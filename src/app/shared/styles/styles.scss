@@ -2,13 +2,19 @@ $color-white: #fff;
 $color-gray: #cfcfcf;
 $color-red: #ff0000;
 
+h2 {
+  font-size: 32px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
 .app-plate {
+  margin: 0 auto;
   width: 100%;
-  min-height: 477px;
   background-color: $color-white;
   border: 1px solid $color-gray;
   border-radius: 4px;
-  padding: 32px;
   display: flex;
   justify-content: center;
 }
@@ -24,26 +30,63 @@ $color-red: #ff0000;
 }
 
 .form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
   &__control {
-    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-bottom: 34px;
+  }
+
+  &__control:last-child {
+    margin-bottom: 54px;
   }
 
   &__action {
-    margin-top: 54px;
+    margin-bottom: 38px;
   }
 
   &__text {
     text-align: center;
-    margin-top: 38px;
     flex-wrap: wrap;
   }
+
+  label {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  input {
+    padding: 13px 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+
+  .ng-invalid.ng-touched {
+    border: 1px solid red;
+  }
+}
+
+.text-danger {
+  position: absolute;
+  top: 100%;
+  color: red;
 }
 
 .separator {
   width: 100%;
   border-bottom: 1px solid $color-gray;
-}
-
-.text-danger {
-  color: red;
 }

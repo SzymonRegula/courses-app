@@ -13,6 +13,7 @@ export class ButtonComponent implements OnInit {
     library.addIconPacks(fas);
   }
 
+  @Input() type: string = 'submit';
   @Input() buttonText?: string;
   @Input() iconName?: IconName;
   classExpression = `app-button`;
