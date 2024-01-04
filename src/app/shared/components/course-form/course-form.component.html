@@ -1,5 +1,5 @@
 <!-- Replace ::text:: with your code -->
-<h2 class="header">Create / Edit Course</h2>
+<h2 class="header">{{ header }}</h2>
 <form class="form" (ngSubmit)="onSubmit()" [formGroup]="courseForm">
   <div class="app-plate">
     <div class="course">
@@ -41,24 +41,26 @@
       <div class="separator"></div>
       <h3>Authors</h3>
       <div class="form__control" formGroupName="newAuthor">
-        <div class="course__flex">
-          <!--Use the name `author` for the form control.-->
-          <input
-            type="text"
-            id="author"
-            placeholder="Input Author Name"
-            formControlName="author"
-          />
-          <app-button
-            id="createAuthor"
-            buttonText="create author"
-            type="button"
-            (click)="onCreateAuthor()"
-          ></app-button>
+        <div *ngIf="this.mode !== 2">
+          <div class="course__flex">
+            <!--Use the name `author` for the form control.-->
+            <input
+              type="text"
+              id="author"
+              placeholder="Input Author Name"
+              formControlName="author"
+            />
+            <app-button
+              id="createAuthor"
+              buttonText="create author"
+              type="button"
+              (click)="onCreateAuthor()"
+            ></app-button>
+          </div>
+          <span *ngIf="showAuthorErrorMessage" id="authorErrorMessage"
+            >New author should contain only latin letters and numbers.</span
+          >
         </div>
-        <span *ngIf="showAuthorErrorMessage" id="authorErrorMessage"
-          >New author should contain only latin letters and numbers.</span
-        >
         <!--Use the name `authors` for the form array.-->
         <ul class="course__authors" formArrayName="authors">
           <li
@@ -67,6 +69,7 @@
           >
             <span>{{ author.value }}</span>
             <fa-icon
+              *ngIf="this.mode !== 2"
               class="course__authors-icon"
               [icon]="['fas', 'xmark']"
               (click)="onDeleteAuthor(i)"
@@ -97,8 +100,16 @@
       </div>
       <div class="form__action">
         <div class="form__action-buttons">
-          <app-button buttonText="cancel" type="button"></app-button>
-          <app-button buttonText="create course"></app-button>
+          <app-button
+            buttonText="cancel"
+            type="button"
+            routerLink="/courses"
+          ></app-button>
+          <app-button
+            *ngIf="this.mode !== 2"
+            [buttonText]="this.mode !== 1 ? 'create course' : 'update course'"
+            type="submit"
+          ></app-button>
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@
     <div class="course-card__info-text">
       <div>
         <b>Authors: </b>
-        {{ course.authors }}
+        {{ authorsNames }}
       </div>
       <div>
         <b>Duration: </b
@@ -22,11 +22,13 @@
         }}</span>
       </div>
     </div>
-    <div class="course-card__info-actions">
-      <div class="course-card__buttons">
-        <app-button buttonText="show course"></app-button>
-        <ng-content *ngIf="editable"></ng-content>
-      </div>
+
+    <div class="course-card__buttons">
+      <app-button
+        buttonText="show course"
+        [routerLink]="['/course', course.id]"
+      ></app-button>
+      <ng-content *ngIf="editable"></ng-content>
     </div>
   </div>
 </div>

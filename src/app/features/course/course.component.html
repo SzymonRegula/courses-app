@@ -1,7 +1,7 @@
 <div class="course-page">
   <app-header>
     <div class="header__action">
-      <span>Harry Potter</span>
+      <span>{{ userName$ | async }}</span>
       <app-button buttonText="logout"> </app-button>
     </div>
   </app-header>

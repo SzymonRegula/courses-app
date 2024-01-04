@@ -1,21 +1,47 @@
 <div class="courses-page">
   <app-header>
-    <app-button buttonText="login"></app-button>
+    <span>{{ userName$ | async }}</span>
+    <app-button buttonText="logout" (click)="onLogout()"></app-button>
   </app-header>
-  <app-info
-    title="Your list is empty"
-    text="Please use 'Add New Course' button to add your first course"
-  >
-    <app-button buttonText="add new course"></app-button
-  ></app-info>
-  <app-search></app-search>
-  <app-course-list [courses]="courses" [editable]="editable"> </app-course-list>
-  <!-- <app-modal
-    *ngIf="modalShown"
-    title="Message"
-    message="Message text"
-    okButtonText="ok"
-    cancelButtonText="close"
-    (modalResultEvent)="modalAction($event)"
-  ></app-modal> -->
+
+  <div class="courses-page__content">
+    <app-info
+      *ngIf="(courses$ | async)?.length === 0"
+      title="Your list is empty"
+      text="Please use 'Add New Course' button to add your first course"
+    >
+      <app-button
+        buttonText="add new course"
+        routerLink="/course/add"
+      ></app-button>
+    </app-info>
+
+    <div *ngIf="(courses$ | async)?.length !== 0">
+      <div class="courses-page__content__search_row">
+        <app-search class="app-search" (search)="onSearch($event)"></app-search>
+        <app-button
+          *ngIf="isAdmin$ | async"
+          buttonText="add new course"
+          routerLink="/course/add"
+        ></app-button>
+      </div>
+
+      <app-course-list
+        [courses]="(searchCourses$ | async) || []"
+        [editable]="(isAdmin$ | async) || false"
+        (deleteCourseEvent)="onDeleteCourse($event)"
+        (editCourseEvent)="onEditCourse($event)"
+      >
+      </app-course-list>
+
+      <app-modal
+        *ngIf="modalShown"
+        title="Delete course"
+        message="Are you sure you want to delete this course?"
+        okButtonText="yes"
+        cancelButtonText="cancel"
+        (modalResultEvent)="modalAction($event)"
+      ></app-modal>
+    </div>
+  </div>
 </div>

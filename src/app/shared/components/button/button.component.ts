@@ -16,6 +16,8 @@ export class ButtonComponent implements OnInit {
   @Input() type: string = 'submit';
   @Input() buttonText?: string;
   @Input() iconName?: IconName;
+  @Input() click?: Event;
+
   classExpression = `app-button`;
 
   ngOnInit() {

@@ -2,3 +2,20 @@
   background: #f7f7f7;
   height: 100vh;
 }
+
+.courses-page__content {
+  margin: 74px auto;
+  max-width: 1122px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.courses-page__content__search_row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.app-search {
+  width: 50%;
+}
