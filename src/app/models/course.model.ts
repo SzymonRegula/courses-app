@@ -1,4 +1,4 @@
-import { Author, AuthorRequest } from './author.model';
+import { Author } from './author.model';
 
 export type CourseRequest = {
   title: string;

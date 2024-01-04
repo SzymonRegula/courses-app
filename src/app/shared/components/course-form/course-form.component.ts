@@ -10,10 +10,10 @@ import { authorValidator } from '@app/shared/utils/author.validator';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { CourseRequest } from '@app/models/course.model';
-import { CoursesStoreService } from '@app/services/courses-store.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthorsStoreService } from '@app/services/authors-store.service';
 import { AuthorResponse } from '@app/models/author.model';
+import { CoursesStateFacade } from '@app/store/courses/courses.facade';
 
 enum Mode {
   Add,
@@ -36,7 +36,7 @@ export class CourseFormComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     public library: FaIconLibrary,
-    private coursesStore: CoursesStoreService,
+    public coursesStateFacade: CoursesStateFacade,
     private route: ActivatedRoute,
     private authorsStore: AuthorsStoreService
   ) {
@@ -67,30 +67,25 @@ export class CourseFormComponent implements OnInit {
     }
 
     if (this.mode !== Mode.Add) {
-      this.coursesStore.getCourse(this.route.snapshot.params['id']).subscribe({
-        next: (response) => {
-          const course = response.result;
-          this.courseForm.reset({
-            title: course.title,
-            description: course.description,
-            newAuthor: {
-              author: '',
-              authors: [],
-            },
-            duration: course.duration,
+      this.coursesStateFacade.getSingleCourse(this.route.snapshot.params['id']);
+      this.coursesStateFacade.course$.subscribe((course) => {
+        this.courseForm.reset({
+          title: course?.title,
+          description: course?.description,
+          newAuthor: {
+            author: '',
+            authors: [],
+          },
+          duration: course?.duration,
+        });
+        this.authorsStore.getAll().subscribe((authors) => {
+          authors.result.forEach((author) => {
+            if (course?.authors.includes(author.id)) {
+              this.authors.push(this.fb.control(author.name));
+            }
           });
-          this.authorsStore.getAll().subscribe((authors) => {
-            authors.result.forEach((author) => {
-              if (course.authors.includes(author.id)) {
-                this.authors.push(this.fb.control(author.name));
-              }
-            });
-          });
-          this.authorsIds = course.authors;
-        },
-        error: (error) => {
-          console.error(error);
-        },
+        });
+        this.authorsIds = course?.authors || [];
       });
     }
   }
@@ -131,28 +126,13 @@ export class CourseFormComponent implements OnInit {
       authors: this.authorsIds,
     };
 
-    console.log(courseRequest);
-
     if (this.mode === Mode.Add) {
-      this.coursesStore.createCourse(courseRequest).subscribe({
-        next: (response) => {
-          console.log(response);
-        },
-        error: (error) => {
-          console.log(error);
-        },
-      });
+      this.coursesStateFacade.createCourse(courseRequest);
     } else if (this.mode === Mode.Edit) {
-      this.coursesStore
-        .editCourse(this.route.snapshot.params['id'], courseRequest)
-        .subscribe({
-          next: (response) => {
-            console.log(response);
-          },
-          error: (error) => {
-            console.log(error);
-          },
-        });
+      this.coursesStateFacade.editCourse(
+        this.route.snapshot.params['id'],
+        courseRequest
+      );
     }
   }
 

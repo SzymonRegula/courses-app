@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CoursesStoreService } from '@app/services/courses-store.service';
 import { Observable } from 'rxjs';
 import { Course } from '@app/models/course.model';
 import { AuthService } from '@app/auth/services/auth.service';
 import { Router } from '@angular/router';
 import { UserStoreService } from '@app/user/services/user-store.service';
+import { CoursesStateFacade } from '@app/store/courses/courses.facade';
 
 @Component({
   selector: 'app-courses',
@@ -12,8 +12,9 @@ import { UserStoreService } from '@app/user/services/user-store.service';
   styleUrls: ['./courses.component.scss'],
 })
 export class CoursesComponent implements OnInit {
-  courses$: Observable<Course[]> = this.coursesStore.courses$;
-  searchCourses$: Observable<Course[]> = this.coursesStore.searchCourses$;
+  allCourses$ = this.coursesStateFacade.allCourses$;
+  courses$ = this.coursesStateFacade.courses$;
+  isSearchingState$ = this.coursesStateFacade.isSearchingState$;
   userName$: Observable<string | null> = this.userStore.name$;
   isAuthorized$: Observable<boolean> = this.authService.isAuthorized$;
   isAdmin$: Observable<boolean> = this.userStore.isAdmin$;
@@ -21,20 +22,19 @@ export class CoursesComponent implements OnInit {
   modalCourse: Course | null = null;
 
   constructor(
-    private coursesStore: CoursesStoreService,
+    public coursesStateFacade: CoursesStateFacade,
     private authService: AuthService,
     private router: Router,
     private userStore: UserStoreService
   ) {}
 
   ngOnInit() {
+    this.coursesStateFacade.getAllCourses();
     this.userStore.getUser().subscribe();
-    this.coursesStore.getAll().subscribe();
   }
 
   onSearch(searchTerm: string) {
-    console.log(searchTerm);
-    this.coursesStore.searchCourses(searchTerm).subscribe();
+    this.coursesStateFacade.getFilteredCourses(searchTerm);
   }
 
   onLogout() {
@@ -48,7 +48,7 @@ export class CoursesComponent implements OnInit {
 
   modalAction(result: boolean) {
     if (result && this.modalCourse) {
-      this.coursesStore.deleteCourse(this.modalCourse.id).subscribe();
+      this.coursesStateFacade.deleteCourse(this.modalCourse.id);
     }
     this.modalShown = false;
     this.modalCourse = null;
